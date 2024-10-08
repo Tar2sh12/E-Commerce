@@ -35,3 +35,18 @@ export const getCategoriesSchema = {
     return value; // Return validated value
   }),
 };
+
+
+//update category schema
+export const updateCategorySchema = {
+    body: Joi.object({
+      name: Joi.string().optional(),
+    }),
+  headers: Joi.object({
+    token: Joi.string().required(),
+    ...generalRules.headers,
+  }),
+  params: Joi.object({
+    _id: generalRules._id.required(),
+  }),
+};

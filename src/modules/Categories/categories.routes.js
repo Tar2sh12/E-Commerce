@@ -9,7 +9,7 @@ import * as middlewares from "../../middleware/index.js";
 // models
 import { Category } from "../../../DB/models/index.js";
 //schemas 
-import { deleteCategorySchema ,createCategorySchema,getCategoriesSchema } from "./categories.schema.js";
+import { deleteCategorySchema ,createCategorySchema,getCategoriesSchema ,updateCategorySchema} from "./categories.schema.js";
 // get the required middlewares
 const {
   errorHandler,
@@ -40,6 +40,7 @@ categoryRouter.get("/",
 categoryRouter.put(
   "/update/:_id",
   multerHost({ allowedExtensions: extensions.Images }).single("image"),
+  errorHandler(validationMiddleware(updateCategorySchema)),
   errorHandler(auth()),
   errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   getDocumentByName(Category),
