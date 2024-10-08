@@ -93,12 +93,20 @@ export const getCategory = async (req, res, next) => {
 export const updateCategory = async (req, res, next) => {
   // get the category id
   const { _id } = req.params;
+  const createdBy  =req.authUser._id;
+  console.log(createdBy);
+  
   // find the category by id
   const category = await Category.findById(_id);
 
   if (!category) {
     return next(
       new ErrorClass("Category not found", 404, "Category not found")
+    );
+  }
+  if(!category.createdBy.equals(createdBy)){
+    return next(
+      new ErrorClass("Unauthorized Action", 404, "Unauthorized Action")
     );
   }
   // name of the category
@@ -147,12 +155,18 @@ export const deleteCategory = async (req, res, next) => {
   // get the category id
   // get the category id
   const { _id } = req.params;
+  const createdBy  =req.authUser._id;
 
   // delete the category from db
   const category = await Category.findOneAndDelete({_id});
   if (!category) {
     return next(
       new ErrorClass("Category not found", 404, "Category not found")
+    );
+  }
+  if(!category.createdBy.equals(createdBy)){
+    return next(
+      new ErrorClass("Unauthorized Action", 404, "Unauthorized Action")
     );
   }
   // delete relivant images from cloudinary
