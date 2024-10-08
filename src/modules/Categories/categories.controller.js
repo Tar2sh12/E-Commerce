@@ -94,7 +94,6 @@ export const updateCategory = async (req, res, next) => {
   // get the category id
   const { _id } = req.params;
   const createdBy  =req.authUser._id;
-  console.log(createdBy);
   
   // find the category by id
   const category = await Category.findById(_id);
