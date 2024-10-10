@@ -12,9 +12,11 @@ export const createBrand = async (req, res, next) => {
   // check if the category and subcategory are exist
   const { category, subCategory } = req.query;
 
+  const createdBy  =req.authUser._id;
   const isSubcategoryExist = await SubCategory.findOne({
     _id: subCategory,
     categoryId: category,
+    createdBy
   }).populate("categoryId");
 
   if (!isSubcategoryExist) {
@@ -23,7 +25,6 @@ export const createBrand = async (req, res, next) => {
     );
   }
 
-  const createdBy  =req.authUser._id;
 
   // Generating brand slug
   const { name } = req.body;
@@ -113,6 +114,13 @@ export const updatebrand = async (req, res, next) => {
       new ErrorClass("subCategory not found", 404, "subCategory not found")
     );
   }
+  const createdBy = req.authUser._id;
+  //the admin who make this request must be who creates this sub category
+  if(!brand.createdBy.equals(createdBy)){
+    return next(
+      new ErrorClass("Unauthorized Action", 401, "Unauthorized Action")
+    );
+  }
 
   // Update name and slug
   if (name) {
@@ -152,12 +160,14 @@ export const deleteBrand = async (req, res, next) => {
   const { _id } = req.params;
 
   // find the sub-category by id
-  const brand = await Brand.findOneAndDelete({_id})
+  const brand = await Brand.findOneAndDelete({_id, createdBy: req.authUser._id})
     .populate("categoryId")
     .populate("subCategoryId");
   if (!brand) {
     return next(new ErrorClass("brand not found", 404, "brand not found"));
   }
+
+
   // delete the related image from cloudinary
   const brandPath = `${process.env.UPLOADS_FOLDER}/Categories/${brand.categoryId.customId}/SubCategories/${brand.subCategoryId.customId}/Brands/${brand.customId}`;
   // delete the related folders from cloudinary

@@ -34,14 +34,17 @@ export const getCategoriesSchema = {
     }
     return value; // Return validated value
   }),
+  headers: Joi.object({
+    token: Joi.string().required(),
+    ...generalRules.headers,
+  }),
 };
-
 
 //update category schema
 export const updateCategorySchema = {
-    body: Joi.object({
-      name: Joi.string().optional(),
-    }),
+  body: Joi.object({
+    name: Joi.string().optional(),
+  }),
   headers: Joi.object({
     token: Joi.string().required(),
     ...generalRules.headers,

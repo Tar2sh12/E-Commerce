@@ -105,7 +105,7 @@ export const updateCategory = async (req, res, next) => {
   }
   if(!category.createdBy.equals(createdBy)){
     return next(
-      new ErrorClass("Unauthorized Action", 404, "Unauthorized Action")
+      new ErrorClass("Unauthorized Action", 401, "Unauthorized Action")
     );
   }
   // name of the category
@@ -165,7 +165,7 @@ export const deleteCategory = async (req, res, next) => {
   }
   if(!category.createdBy.equals(createdBy)){
     return next(
-      new ErrorClass("Unauthorized Action", 404, "Unauthorized Action")
+      new ErrorClass("Unauthorized Action", 401, "Unauthorized Action")
     );
   }
   // delete relivant images from cloudinary
@@ -201,7 +201,7 @@ export const deleteCategory = async (req, res, next) => {
 /**
  * @api {GET} /categories get categories paginated with it's sub-categories
  */
-export const  allCategoriesWithSubcatgories=async(req,res,next)=>{
+export const allCategoriesWithSubcatgories=async(req,res,next)=>{
   const {page=1,limit=3}=req.query
   const skip=(page-1)*limit
   const data=await Category.aggregate([
