@@ -32,8 +32,7 @@ export const checkIfIdsExit = (model) => {
   return async (req, res, next) => {
     const { category, subCategory, brand } = req.query;
     // Ids check
-    const document = await model
-      .findOne({
+    const document = await model.findOne({
         _id: brand,
         categoryId: category,
         subCategoryId: subCategory,

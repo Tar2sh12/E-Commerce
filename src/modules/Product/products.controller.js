@@ -28,6 +28,11 @@ export const addProduct = async (req, res, next) => {
 
   // Ids check
   const brandDocument = req.document;
+  if(!brandDocument.createdBy.equals(createdBy)){
+    return next(
+      new ErrorClass("Unauthorized Action", 401, "Unauthorized Action")
+    );
+  }
   // Images section
   // Access the customIds from the brandDocument
   const brandCustomId = brandDocument.customId;
@@ -107,6 +112,13 @@ export const updateProduct = async (req, res, next) => {
   if (!product)
     return next(new ErrorClass("Product not found", { status: 404 }));
 
+
+  const createdBy  =req.authUser._id;
+  if(!product.createdBy.equals(createdBy)){
+    return next(
+      new ErrorClass("Unauthorized Action", 401, "Unauthorized Action")
+    );
+  }
   // update the product title and slug
   if (title) {
     product.title = title;
@@ -164,10 +176,11 @@ export const updateProduct = async (req, res, next) => {
  */
 export const deleteProduct = async (req, res, next) => {
   const { id } = req.params;
+
  
   
   // delete the product from db
-  const product = await Product.findByIdAndDelete(id).populate('categoryId').populate('subCategoryId').populate('brandId');
+  const product = await Product.findOneAndDelete({_id:id,createdBy:req.authUser._id}).populate('categoryId').populate('subCategoryId').populate('brandId');
   if (!product) {
     return next(new ErrorClass("product not found", 404, "product not found"));
   }
