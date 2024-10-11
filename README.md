@@ -51,8 +51,8 @@ The application includes the following schemas:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/e-commerce-project.git
-   cd e-commerce-project
+   git clone https://github.com/Tar2sh12/E-Commerce.git
+   cd E-Commerce
 2. Install dependencies:
    ```bash
    npm install
