@@ -8,7 +8,7 @@ This is an e-commerce application built with Express.js as the back-end framewor
 
 - **User Management**: User registration, login, and profile management.
 - **Product Management**: Categories, brands, and products with detailed descriptions.
-- **Cart & Wishlist**: Users can add products to their carts and wishlists.
+- **Cart**: Users can add products to their carts and wishlists.
 - **Coupons**: Support for discount codes and promotions.
 - **Orders**: Users can view and manage their orders.
 - **Reviews**: Users can leave reviews for products.
