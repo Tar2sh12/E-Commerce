@@ -61,6 +61,27 @@ The application includes the following schemas:
 5. Start the server:
    ```bash
    npm run start:dev
+## Environment Variables
+
+To run this project, you will need to set up a `.env` file in the root directory of your project with the following variables:
+
+```plaintext
+PORT=               # The port on which the server will run
+MONGO_URI=         # MongoDB connection string
+LOGIN_SECRET=      # Secret for JWT authentication
+CONFIRM_TOKEN=     # Token used for email confirmation
+SALT_ROUNDS=       # Number of rounds for password hashing
+PREFIX_SECRET=     # Secret prefix for tokens
+CLOUD_NAME=        # Cloud name for your cloud storage (e.g., Cloudinary)
+API_KEY=           # API key for cloud storage
+API_SECRET=        # API secret for cloud storage
+UPLOADS_FOLDER=    # Directory for storing uploads
+CITY_API_KEY=      # API key for city/location services
+STRIPE_SECRET_KEY= # Stripe secret key for payment processing
+SUCCESS_URL=       # URL to redirect to after successful payment
+CANCEL_URL=        # URL to redirect to after canceled payment
+
+
 
 ***Usage***
 - Use an API client (like Postman) to interact with the endpoints.
