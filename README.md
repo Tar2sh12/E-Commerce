@@ -69,9 +69,9 @@ The application includes the following schemas:
 1. This project is licensed under the MIT License.
 
 ## Acknowledgments
-Express.js
-MongoDB
-Stripe
-Socket.io
-Joi
+- Express.js
+- MongoDB
+- Stripe
+- Socket.io
+- Joi
  
