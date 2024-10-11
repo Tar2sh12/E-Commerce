@@ -80,8 +80,7 @@ CITY_API_KEY=      # API key for city/location services
 STRIPE_SECRET_KEY= # Stripe secret key for payment processing
 SUCCESS_URL=       # URL to redirect to after successful payment
 CANCEL_URL=        # URL to redirect to after canceled payment
-
-
+```
 
 ***Usage***
 - Use an API client (like Postman) to interact with the endpoints.
