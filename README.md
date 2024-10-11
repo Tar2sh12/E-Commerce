@@ -65,8 +65,9 @@ The application includes the following schemas:
 ***Usage***
 - Use an API client (like Postman) to interact with the endpoints.
 - Explore the available routes for user registration, product management, cart operations, and payment processing.
+  
 ***License***
-1. This project is licensed under the MIT License.
+- This project is licensed under the MIT License.
 
 ## Acknowledgments
 - Express.js
