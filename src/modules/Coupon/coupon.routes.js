@@ -3,7 +3,7 @@ const couponRouter = Router();
 // controllers
 import * as controller from "./coupon.controller.js";
 // utils
-import { extensions, roles } from "../../utils/index.js";
+import { extensions, roles, systemRoles } from "../../utils/index.js";
 // middlewares
 import * as middlewares from "../../middleware/index.js";
 // models
@@ -18,20 +18,20 @@ couponRouter.post(
   "/create",
   validationMiddleware(createCouponSchema),
   errorHandler(auth()),
-  errorHandler(authorizationMiddleware(roles.ADMIN)),
+  errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.createCoupon)
 );
 couponRouter.put(
   "/update/:couponId",
   validationMiddleware(updateCouponSchema),
   errorHandler(auth()),
-  errorHandler(authorizationMiddleware(roles.ADMIN)),
+  errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.updateCoupon)
 );
 couponRouter.patch(
   "/enable/:couponId",
   errorHandler(auth()),
-  errorHandler(authorizationMiddleware(roles.ADMIN)),
+  errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.disableEnableCoupon)
 );
 
@@ -39,13 +39,13 @@ couponRouter.patch(
 couponRouter.get( 
   "/",
   errorHandler(auth()),
-  errorHandler(authorizationMiddleware(roles.ADMIN)),
+  errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.getCoupons)
 );
 couponRouter.get(
   "/details/:couponId",
   errorHandler(auth()),
-  errorHandler(authorizationMiddleware(roles.ADMIN)),
+  errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.getCouponById)
 );
 export { couponRouter };

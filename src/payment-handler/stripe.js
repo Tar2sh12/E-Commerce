@@ -44,7 +44,7 @@ export const createCouponWithStripe = async ({ couponId }) => {
   if (findCoupon.couponType == CouponTypes.AMOUNT) {
     couponObject = {
       name: findCoupon.couponCode,
-      amount_off: findCoupon.couponAmount,
+      amount_off: findCoupon.couponAmount*100,
       currency: "egp",
     };
   } else if (findCoupon.couponType == CouponTypes.PERCENTAGE) {

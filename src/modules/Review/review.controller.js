@@ -71,14 +71,14 @@ export const changeReviewStatus = async (req, res, next) => {
     const userId = req.authUser._id;
     const { reviewId } = req.params;
     const { status } = req.body;
-    const review = await Review.findOne({ _id: reviewId });
+    const review = await Review.findOne({ _id: reviewId }).populate('productId');
     if (!review) {
         return next(new ErrorClass("review not found", 404, "review not found"));
     }
     if(status!=ReviewStatus.Approved && status!=ReviewStatus.Rejected){
         return next(new ErrorClass("invalid status", 400, "invalid status"));
-    }
-    if (review.userId.toString() !== userId.toString()) {
+    } 
+    if (review.productId.createdBy.toString() !== userId.toString()) {
         return next(new ErrorClass("you are not authorized", 403, "you are not authorized"));
     }
 
