@@ -260,8 +260,8 @@ export const stripeWebhookLocal = async (req, res, next) => {
   // });
 
   // console.log({ payment_intent_from_db: req.body.data.object.payment_intent });
-  const payment_intent = req.body.data.object.payment_intent;
   // Single Source of truth
+  const payment_intent = req.body.data.object.payment_intent;
   // const confirmPayment = await confirmPaymentIntent({
   //   paymentIntentId: payment_intent,
   // });
