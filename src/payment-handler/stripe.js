@@ -46,6 +46,37 @@ export const createCouponWithStripe = async ({ couponId }) => {
   return stripeCoupon;
 };
 
+
+
+export const createCouponWithFeesWithStripe = async ({ couponId ,fees,subtotal}) => {
+  //https://docs.stripe.com/api/coupons/object?lang=node => link to the documentation of stripe that contains coupon section
+  console.log({ couponId ,fees,subtotal});
+  
+  const findCoupon = await Coupon.findById(couponId);
+  if (!findCoupon) {
+    return next(new ErrorClass("coupon not found", 404, "coupon not found"));
+  }
+  let couponObject = {};
+  if (findCoupon.couponType == CouponTypes.AMOUNT){
+    const amount=findCoupon.couponAmount-fees
+    couponObject = {
+      name: findCoupon.couponCode,
+      amount_off: amount * 100,
+      currency: "egp",
+    };
+  } else if (findCoupon.couponType == CouponTypes.PERCENTAGE){
+    const amount=subtotal*(findCoupon.couponAmount/100)-fees;
+    couponObject = {
+      name: findCoupon.couponCode,
+      amount_off: amount * 100,
+      currency: "egp",
+    };
+  }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const stripeCoupon = await stripe.coupons.create(couponObject);
+  return stripeCoupon;
+};
+
 //create payment method
 export const createPaymentMethodWithStripe = async ({ token }) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);

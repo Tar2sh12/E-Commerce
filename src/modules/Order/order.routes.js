@@ -56,12 +56,12 @@ orderRouter.post("/webhook", errorHandler(controller.stripeWebhookLocal));
 orderRouter.post(
   "/refund/:orderId",
   // auth(),
-  // errorHandler(authorizationMiddleware(systemRoles.BUYER)),
+  // errorHandler(authorizationMiddleware(systemRoles.ADMIN)),
   errorHandler(controller.refundPaymentData)
 );
 export { orderRouter };
 
 /**
- * Automatically  refunf (after client cancel)
+ * Automatically  refund (after client cancel)
  * manual , by admin
  */

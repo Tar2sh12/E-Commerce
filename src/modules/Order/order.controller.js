@@ -11,6 +11,8 @@ import { applyCoupon, validateCoupon } from "./utils/order.utils.js";
 import {
   confirmPaymentIntent,
   createCouponWithStripe,
+  createCouponWithFeesWithStripe
+  ,
   createPaymentIntentWithStripe,
   createSession,
   refundPayment,
@@ -231,9 +233,17 @@ export const payWithStripe = async (req, res, next) => {
   });
   //create coupon
   if (order.couponId) {
+    // const fees=order.VAT+order.shipingFee;
+    // const stripeCoupon = await createCouponWithFeesWithStripe({
+    //   couponId: order.couponId,
+    //   fees,
+    //   subtotal: order.subTotal
+    // });
+    
     const stripeCoupon = await createCouponWithStripe({
       couponId: order.couponId,
     });
+    
     if (stripeCoupon.status) {
       return next(new ErrorClass(stripeCoupon.msg, 400, stripeCoupon.msg));
     }
@@ -262,6 +272,7 @@ export const stripeWebhookLocal = async (req, res, next) => {
   // console.log({ payment_intent_from_db: req.body.data.object.payment_intent });
   // Single Source of truth
   const payment_intent = req.body.data.object.payment_intent;
+  console.log(req.body);
   // const confirmPayment = await confirmPaymentIntent({
   //   paymentIntentId: payment_intent,
   // });

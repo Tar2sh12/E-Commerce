@@ -11,15 +11,15 @@ import { gracefulShutdown } from "node-schedule";
 import { routerHandler } from "./router-handler.js";
 export const main = () => {
   // Inheritance
-  let animal = {
-    eats: "eats",
-  };
-  // let dog = Object.create(animal);
-  let dog = new Object(animal);
-  dog.nice = "nice";
-  dog.eats = "bones";
-  console.log(dog.eats);
-  console.log(dog);
+  // let animal = {
+  //   eats: "eats",
+  // };
+  // // let dog = Object.create(animal);
+  // let dog = new Object(animal);
+  // dog.nice = "nice";
+  // dog.eats = "bones";
+  // console.log(dog.eats);
+  // console.log(dog);
   const app = express();
 
   config();
